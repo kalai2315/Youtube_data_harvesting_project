@@ -2,7 +2,7 @@
 
 
 **YouTube Data Harvesting and Warehousing
-https://www.linkedin.com/posts/activity-7209856110147645441-e5OL?utm_source=share&utm_medium=member_desktop
+
 
 Overview**
 		This project focuses on gathering data from YouTube, utilizing Python scripting for data collection, and storing the obtained data in MongoDB and SQL databases. It further involves the creation of a Streamlit dashboard for visualizing and analyzing the collected data. Key components of the project include API integration, data management using MongoDB Atlas and SQL, and efficient data retrieval and exploration through the Streamlit interface.
