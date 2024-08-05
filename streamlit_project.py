@@ -183,7 +183,7 @@ try:
     print("Database setup successful")
 
     # Create SQLAlchemy engine
-    engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}", echo=False)
+    engine = create_engine(f"mysql+pymysql://{0}:{1}@{2}:{3}/{4}", echo=False)
     print("SQLAlchemy engine created successfully")
     
 except pymysql.MySQLError as e:
