@@ -157,6 +157,7 @@ def channel_details(channel_id):
     collection1.insert_one({"channel_information":channel_info,"playlist_information":playlist_info,"video_information":video_info,"comment_information":comment_info})
     return "successfully uploaded in mongodb"
 
+
 import pymysql
 from sqlalchemy import create_engine
 
@@ -169,6 +170,7 @@ database = 'Youtube'
 
 # Initialize connection
 connection = None
+engine = None  # Initialize engine to None to handle scope issues
 try:
     # Connect to MySQL server and create database if it doesn't exist
     connection = pymysql.connect(
@@ -183,7 +185,7 @@ try:
     print("Database setup successful")
 
     # Create SQLAlchemy engine
-    engine = create_engine(f"mysql+pymysql://{0}:{1}@{2}:{3}/{4}", echo=False)
+    engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}", echo=False)
     print("SQLAlchemy engine created successfully")
     
 except pymysql.MySQLError as e:
@@ -193,6 +195,19 @@ except Exception as e:
 finally:
     if connection:
         connection.close()
+
+# Use the engine if it was successfully created
+if engine:
+    # Add your database operations here
+    with engine.connect() as conn:
+        # Example operation: print tables
+        result = conn.execute("SHOW TABLES;")
+        print("Tables in the database:")
+        for row in result:
+            print(row)
+else:
+    print("Engine not created. Check for errors in the setup.")
+
 
 
 
