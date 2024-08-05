@@ -159,17 +159,26 @@ def channel_details(channel_id):
 
 
 
-mydb = pymysql.connect(
-        host = "localhost",
-        user = "root",
-        password = "root",
-        
-        autocommit = True
+import pymysql
+
+try:
+    connection = pymysql.connect(
+        host='localhost',
+        user='root',
+        password='root',
+        autocommit=True
     )
-mycursor = mydb.cursor()
-mycursor.execute("create database if not exists Youtube")
-mydb.commit()
-mycursor.execute("use Youtube")
+    print("Connection successful")
+    cursor = connection.cursor()
+    cursor.execute("CREATE DATABASE IF NOT EXISTS Youtube")
+    cursor.execute("USE Youtube")
+    print("Database setup successful")
+except pymysql.MySQLError as e:
+    print(f"Error: {e}")
+finally:
+    if connection:
+        connection.close()
+
 
 from sqlalchemy import create_engine
 
@@ -181,9 +190,14 @@ port = 3306
 database = 'Youtube'
 
 
-engine = create_engine(url="mysql+pymysql://{0}:{1}@{2}:{3}/{4}".format(
-            user, password, host, port, database
-        ), echo=False)
+
+
+try:
+    engine = create_engine(f"mysql+pymysql://{0}:{1}@{2}:{3}/{4}", echo=False)
+    print("SQLAlchemy engine created successfully")
+except Exception as e:
+    print(f"Error creating SQLAlchemy engine: {e}")
+
 
 
 def data_from_mongodb(channel_id):
