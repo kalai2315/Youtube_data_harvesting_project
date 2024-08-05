@@ -6,3 +6,5 @@ pandas-datareader
 prophet
 google-api-python-client
 isodate
+pymongo
+pymysql
