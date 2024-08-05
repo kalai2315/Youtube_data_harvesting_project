@@ -157,46 +157,45 @@ def channel_details(channel_id):
     collection1.insert_one({"channel_information":channel_info,"playlist_information":playlist_info,"video_information":video_info,"comment_information":comment_info})
     return "successfully uploaded in mongodb"
 
-
-
 import pymysql
-
-try:
-    connection = pymysql.connect(
-        host='localhost',
-        user='root',
-        password='root',
-        autocommit=True
-    )
-    print("Connection successful")
-    cursor = connection.cursor()
-    cursor.execute("CREATE DATABASE IF NOT EXISTS Youtube")
-    cursor.execute("USE Youtube")
-    print("Database setup successful")
-except pymysql.MySQLError as e:
-    print(f"Error: {e}")
-finally:
-    if connection:
-        connection.close()
-
-
 from sqlalchemy import create_engine
 
-import pymysql
+# Define connection parameters
 user = 'root'
 password = 'root'
 host = 'localhost'
 port = 3306
 database = 'Youtube'
 
-
-
-
+# Initialize connection
+connection = None
 try:
-    engine = create_engine(f"mysql+pymysql://{0}:{1}@{2}:{3}/{4}", echo=False)
+    # Connect to MySQL server and create database if it doesn't exist
+    connection = pymysql.connect(
+        host=host,
+        user=user,
+        password=password,
+        autocommit=True
+    )
+    cursor = connection.cursor()
+    cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database}")
+    cursor.execute(f"USE {database}")
+    print("Database setup successful")
+
+    # Create SQLAlchemy engine
+    engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{database}", echo=False)
     print("SQLAlchemy engine created successfully")
+    
+except pymysql.MySQLError as e:
+    print(f"MySQL Error: {e}")
 except Exception as e:
-    print(f"Error creating SQLAlchemy engine: {e}")
+    print(f"General Error: {e}")
+finally:
+    if connection:
+        connection.close()
+
+
+
 
 
 
