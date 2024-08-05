@@ -26,8 +26,8 @@ setting_bg()
 
 #establishes a connection to the youtube data API using the API Key.
 def Api_connect():
-    Api_Id="AIzaSyDU1mUeLPuCOH9D4Erio4AeNxOMStVNtfE"   
-    youtube=build("youtube", "v3", developerKey=Api_Id)
+    #Api_Id="AIzaSyDU1mUeLPuCOH9D4Erio4AeNxOMStVNtfE"   
+    youtube=build("youtube", "v3", developerKey="AIzaSyDU1mUeLPuCOH9D4Erio4AeNxOMStVNtfE")
     return youtube
 youtube=Api_connect()
 
