@@ -9,3 +9,4 @@ isodate
 pymongo
 pymysql
 sqlalchemy
+streamlit-option-menu
