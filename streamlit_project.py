@@ -168,17 +168,21 @@ host = 'localhost'
 port = 3306
 database = 'Youtube'
 
-# Initialize connection
+# Initialize connection and engine to None
 connection = None
-engine = None  # Initialize engine to None to handle scope issues
+engine = None
+
 try:
-    # Connect to MySQL server and create database if it doesn't exist
+    # Attempt to connect to MySQL server
     connection = pymysql.connect(
         host=host,
         user=user,
         password=password,
         autocommit=True
     )
+    print("Connection to MySQL server successful")
+
+    # Create cursor and execute database setup commands
     cursor = connection.cursor()
     cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database}")
     cursor.execute(f"USE {database}")
@@ -195,6 +199,8 @@ except Exception as e:
 finally:
     if connection:
         connection.close()
+    else:
+        print("Failed to establish a database connection")
 
 # Use the engine if it was successfully created
 if engine:
@@ -207,7 +213,6 @@ if engine:
             print(row)
 else:
     print("Engine not created. Check for errors in the setup.")
-
 
 
 
